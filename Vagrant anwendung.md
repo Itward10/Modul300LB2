@@ -98,3 +98,8 @@ option domain-name-servers 192.168.10.1;
 option domain-name "mydomain.example";}
 %EOF%
 ```
+
+Wenn man eine seperate Datei möchte für den script damit man die vms und script nach belieben wechseln kann man den folgenden code hinzufügen:
+```ruby master.vm.provision "shell", path: "script.sh" ```
+
+Die script Datei ist im gleichen Ordner wie die Vagrant Datei, deshalb muss man den Pfad nicht angeben.
