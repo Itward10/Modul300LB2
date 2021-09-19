@@ -21,13 +21,13 @@ Vagrant zieht das Packet runter auf den Lokalen PC/Server und setzt die vm auf.
 Mit dem **config.vm** Namensraum kann man die konfiguration bestimmen von der vm selber.
 
 
-```ruby config.vm.box = "ubuntu/xenial64" ``` 
+``` config.vm.box = "ubuntu/xenial64" ``` 
 
-```ruby config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true``` Netzwerkeinstellung an der VM selber
+``` config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true``` Netzwerkeinstellung an der VM selber
 
-```ruby config.vm.provider "virtualbox" do |vb| ``` Auswahl der Virtualisierungssoftware 
+``` config.vm.provider "virtualbox" do |vb| ``` Auswahl der Virtualisierungssoftware 
 
-```ruby 
+``` 
     config.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
       vb.cpus = 2
@@ -100,6 +100,6 @@ option domain-name "mydomain.example";}
 ```
 
 Wenn man eine seperate Datei möchte für den script damit man die vms und script nach belieben wechseln kann man den folgenden code hinzufügen:
-```ruby master.vm.provision "shell", path: "script.sh" ```
+```master.vm.provision "shell", path: "script.sh" ```
 
 Die script Datei ist im gleichen Ordner wie die Vagrant Datei, deshalb muss man den Pfad nicht angeben.
