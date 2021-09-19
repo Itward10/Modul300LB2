@@ -25,8 +25,40 @@ Mit dem **config.vm** Namensraum kann man die konfiguration bestimmen von der vm
 
 ```ruby config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true``` Netzwerkeinstellung an der VM selber
 
-```ruby config.vm.provider "virtualbox" do |vb|
+```ruby config.vm.provider "virtualbox" do |vb| ``` Auswahl der Virtualisierungssoftware 
+
+```ruby 
+    config.vm.provider "virtualbox" do |vb|
       vb.memory = "2048"
       vb.cpus = 2
-``` 
-Auswahl der Virtualisierungssoftware und den Hardware angaben
+    end
+```
+Zusätzlich kann man die grössen der einzelnen Hardware Komponten definieren.
+
+---
+## Wenn man mehr als 1 VM aufsetzten möchte 
+
+Dies kann man mit ```ruby config.vm.define "Name" do |Name| ```
+
+Ein Beispiel für zwei vms einmal einen Server und einen client:
+```ruby
+
+config.vm.define "master" do |master|
+   master.vm.network "private_network", ip: "192.168.10.2", virtualbox__dhcp_server: false
+   master.vm.hostname = "master"
+   master.vm.provision "shell", path: "script.sh"
+  end
+  
+   config.vm.define "worker1" do |w1|
+    w1.vm.network "private_network", type: "dhcp",  name: "vboxnet0", virtualbox__dhcp_server: false
+    w1.vm.hostname = "worker1"
+    w1.vm.provision "shell", inline: <<-SHELL 
+        # Debug ON!!!
+        set -o xtrace
+        sudo apt-get update
+        sudo apt install -y dnsutils traceroute nmap       
+        ifconfig
+    SHELL
+  end
+  ```
+
