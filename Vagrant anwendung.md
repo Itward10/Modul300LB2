@@ -40,7 +40,7 @@ Zusätzlich kann man die grössen der einzelnen Hardware Komponten definieren.
 
 Dies kann man mit ```ruby config.vm.define "Name" do |Name| ```
 
-Ein Beispiel für zwei vms einmal einen Server und einen client:
+Ein Beispiel für zwei vms:
 ```ruby
 
 config.vm.define "master" do |master|
@@ -61,4 +61,40 @@ config.vm.define "master" do |master|
     SHELL
   end
   ```
+---
+## script
 
+Wenn man alles in einem File möchte kann man unter den gewünschten vm zusätzlich hinschreiben:
+
+```ruby
+
+  config.vm.define "master" do |master|
+    master.vm.network "private_network", ip: "192.168.50.2", virtualbox__dhcp_server: false
+    master.vm.hostname = "master"
+    master.vm.provision "shell", inline: <<-SHELL 
+        # Debug ON!!!
+        set -o xtrace
+        sudo apt-get update
+        sudo apt install -y isc-dhcp-server bind9 dnsutils traceroute nmap
+        # DHCP Server
+        cat <<%EOF% | sudo tee -a /etc/dhcp/dhcpd.conf
+subnet 192.168.50.0 netmask 255.255.255.0 {
+ range 192.168.50.20 192.168.50.100;
+ option routers 192.168.50.254;
+ option domain-name-servers 192.168.50.1;
+ option domain-name "mydomain.example";
+}
+%EOF%
+
+```
+Die wichtigen Zeilen sind dabei ```ruby master.vm.provision "shell", inline: <<-SHELL # Debug ON!!! ```
+Wenn man in eine configurationsdatei bearbeiten möchte:
+```ruby
+cat <<%EOF% | sudo tee -a /etc/dhcp/dhcpd.conf
+subnet 192.168.10.0 netmask 255.255.254.0 {
+range 192.168.10.50 192.168.10.100;
+option routers 192.168.10.254;
+option domain-name-servers 192.168.10.1;
+option domain-name "mydomain.example";}
+%EOF%
+```
