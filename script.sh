@@ -7,14 +7,20 @@ sudo apt-get -y install apache2
 sudo apt install -y isc-dhcp-server bind9 dnsutils traceroute nmap
 
 #Passwort setzen        
-usermod --password $(echo Ente123| openssl passwd -1 -stdin) USERNAME
+      set -o xtrace
+      sudo groupadd myadmin
+      sudo useradd admin01 -g myadmin -m -s /bin/bash
+      sudo useradd admin02 -g myadmin -m -s /bin/bash
+      sudo chpasswd <<<admin01:admin
+      sudo chpasswd <<<admin02:admin
+
 
 # DHCP config Datei bearbeiten
 cat <<%EOF% | sudo tee -a /etc/dhcp/dhcpd.conf
-subnet 192.168.1.0 netmask 255.255.254.0 {
-range 192.168.1.50 192.168.1.100;
-option routers 192.168.1.254;
-option domain-name-servers 192.168.1.1;
+subnet 192.168.10.0 netmask 255.255.254.0 {
+range 192.168.10.50 192.168.10.100;
+option routers 192.168.10.254;
+option domain-name-servers 192.168.10.1;
 option domain-name "mydomain.example";}
 %EOF%
 sudo sed -i -e 's/INTERFACES=""/INTERFACES="enp0s8"/g' /etc/default/isc-dhcp-server
@@ -24,3 +30,4 @@ sudo systemctl restart isc-dhcp-server.service
 sudo cp /vagrant/named.conf.local /etc/bind/
 sudo cp /vagrant/db.example.com /vagrant/db.192  /var/lib/bind/
 sudo systemctl restart bind9.service
+
