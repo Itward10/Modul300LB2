@@ -23,7 +23,7 @@ Mit dem **config.vm** Namensraum kann man die konfiguration bestimmen von der vm
 
 ``` config.vm.box = "ubuntu/xenial64" ``` 
 
-``` config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true``` Netzwerkeinstellung an der VM selber
+``` config.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true``` Netzwerkeinstellung an der VM selber am besten schaltet man die automatisch dhcp verteilung von Virtualbox aus, wenn man selber einen DHCP Server erstellt. ``` virtualbox__dhcp_server: false ``` 
 
 ``` config.vm.provider "virtualbox" do |vb| ``` Auswahl der Virtualisierungssoftware 
 
@@ -98,8 +98,10 @@ option domain-name-servers 192.168.10.1;
 option domain-name "mydomain.example";}
 %EOF%
 ```
-
+cat ist ein Schreibprogramm und %EOF% definiert was in den Text kommt.
 Wenn man eine seperate Datei möchte für den script damit man die vms und script nach belieben wechseln kann man den folgenden code hinzufügen:
 ```master.vm.provision "shell", path: "script.sh" ```
 
 Die script Datei ist im gleichen Ordner wie die Vagrant Datei, deshalb muss man den Pfad nicht angeben.
+
+
