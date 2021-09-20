@@ -4,16 +4,15 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/xenial64" 
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
-    vb.cpus = 2
-    vb.gui = true
-  end   
 
   config.vm.define "master" do |master|
    master.vm.network "private_network", ip: "192.168.10.2", virtualbox__dhcp_server: false
+   master.vm.network "forwarded_port", guest: 80 host:8080
    master.vm.hostname = "master"
+   master.memory = 8192
+   master.cpus = 3
    master.vm.provision "shell", path: "script.sh"
+   master.vm.provision "shell", path: "LDAP.sh"
 end
   
    config.vm.define "worker1" do |w1|
