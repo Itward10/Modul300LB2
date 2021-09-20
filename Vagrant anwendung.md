@@ -87,7 +87,7 @@ subnet 192.168.50.0 netmask 255.255.255.0 {
 %EOF%
 
 ```
-Die wichtigen Zeilen sind dabei ```ruby master.vm.provision "shell", inline: <<-SHELL # Debug ON!!! ```
+Die wichtigen Zeilen sind dabei ``` master.vm.provision "shell", inline: <<-SHELL # Debug ON!!! ```
 Wenn man in eine configurationsdatei bearbeiten möchte:
 ```ruby
 cat <<%EOF% | sudo tee -a /etc/dhcp/dhcpd.conf
