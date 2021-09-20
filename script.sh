@@ -9,10 +9,9 @@ sudo apt install -y isc-dhcp-server bind9 dnsutils traceroute nmap
 #Passwort setzen        
       set -o xtrace
       sudo groupadd myadmin
-      sudo useradd admin01 -g myadmin -m -s /bin/bash
-      sudo useradd admin02 -g myadmin -m -s /bin/bash
-      sudo chpasswd <<<admin01:admin
-      sudo chpasswd <<<admin02:admin
+      sudo useradd admin1 -g myadmin -m -s /bin/bash
+      sudo chpasswd <<<admin1:admin
+      
 
 
 # DHCP config Datei bearbeiten
@@ -30,4 +29,3 @@ sudo systemctl restart isc-dhcp-server.service
 sudo cp /vagrant/named.conf.local /etc/bind/
 sudo cp /vagrant/db.example.com /vagrant/db.192  /var/lib/bind/
 sudo systemctl restart bind9.service
-
