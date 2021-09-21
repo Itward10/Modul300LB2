@@ -24,3 +24,6 @@ subnet 192.168.50.0 netmask 255.255.255.0 {
 Danach entschieden wir uns die Befehle in einen seperaten Script Datei zu wechseln.
 ![image](https://user-images.githubusercontent.com/89509863/134143506-4abf44e2-2764-497e-aed9-f609b845ee11.png)
 
+Bei einem Testgang ist uns danach aufgefallen, dass wir gar nicht in unsere VMs zugreifen kann.
+Wir suchten im Internet das Passwort und uns fiel auf, dass es nirgends steht. Überall stand eine Anleitung wie man eine SSH Passwort Setztung.
+![image](https://user-images.githubusercontent.com/89509863/134144948-097a833b-da58-452a-b707-898b7440e80d.png)
