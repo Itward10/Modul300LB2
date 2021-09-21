@@ -36,5 +36,111 @@ Ich suchte in den Scripts herum der unser Lehrer als Beispiele gegeben hatte, ha
       sudo chpasswd <<<admin1:admin
 
 ```
-Ein User wurde erstellt namens admin1 und wurde zur admin Gruppe hinzugefügt. Zusätzlich wurde ein Passwort gesetzt admin.
+Ein User wurde erstellt namens admin1 und wurde zur admin Gruppe hinzugefügt. Zusätzlich wurde ein Passwort gesetzt admin. Danach dachten wir nach was man noch in einem Netz brauchen, der zum ersten mal aufgesetzt wird. Ich dachte an einen AD Server, aber ich wollte alles Linux basiert haben, da ich meiner Meinung nach zu wenig weiss.Damit unser Vagrant File nicht voller script sprach ist entschieden wir uns für ein seperates File. Damit man die Script Files nach belieben in anderen Projekten zu implementieren.
 
+```script
+#!/usr/bin/env bash
+sudo -s
+## Install openldap
+yum -y install openldap compat-openldap openldap-clients openldap-servers openldap-servers-sql openldap-devel
+systemctl start slapd.service
+systemctl enable slapd.service00
+cd /etc/openldap/
+## Configure Openldap — db.ldif
+echo “dn: olcDatabase={2}hdb,cn=config” >> db.ldif
+echo “changetype: modify” >> db.ldif
+echo “replace: olcSuffix” >> db.ldif
+echo “olcSuffix: dc=Labor,dc=Test,dc=com” >> db.ldif
+echo “” >> db.ldif
+echo “dn: olcDatabase={2}hdb,cn=config” >> db.ldif
+echo “changetype: modify” >> db.ldif
+echo “replace: olcRootDN” >> db.ldif
+echo “olcRootDN: cn=ldapadm,dc=Labor,dc=Test,dc=com” >> db.ldif
+echo “” >> db.ldif
+echo “dn: olcDatabase={2}hdb,cn=config” >> db.ldif
+echo “changetype: modify” >> db.ldif
+echo “replace: olcRootPW” >> db.ldif
+password=$(slappasswd -s password)
+echo “olcRootPW: $password” >> db.ldif
+echo “dn: dc=Labor,dc=Test,dc=com” >> base.ldif
+echo “dc: Labor” >> base.ldif
+echo “objectClass: top” >> base.ldif
+echo “objectClass: domain” >> base.ldif
+echo “” >> base.ldif
+echo “dn: cn=ldapadm,dc=Labor,dc=Test,dc=com” >> base.ldif
+echo “objectClass: organizationalRole” >> base.ldif
+echo “cn: ldapadm” >> base.ldif
+echo “description: LDAP Manager” >> base.ldif
+echo “” >> base.ldif
+echo “dn: ou=People,dc=Labor,dc=Tests,dc=com” >> base.ldif
+echo “objectClass: organizationalUnit” >> base.ldif
+echo “ou: People” >> base.ldif
+echo “” >> base.ldif
+echo “dn: ou=Group,dc=Labor,dc=Test,dc=com” >> base.ldif
+echo “objectClass: organizationalUnit” >> base.ldif
+echo “ou: Group” >> base.ldif
+
+#User Konfiguration
+echo “dn: uid=Sarah,ou=People,dc=Labor,dc=Tests, dc=com” >> users.ldif
+echo “objectClass: top” >> users.ldif
+echo “objectClass: person” >> users.ldif
+echo “objectClass: shadowAccount” >> users.ldif
+echo “cn: Sarah” >> users.ldif
+echo “uid: Sarah” >> users.ldif
+password=$(slappasswd -s Saraht123)
+echo “userPassword: $password” >> users.ldif
+echo “” >> users.ldif
+echo “dn: uid=Muriel,ou=People,dc=Labor,dc=Tests, dc=com” >> users.ldif
+echo “objectClass: top” >> users.ldif
+echo “objectClass: person” >> users.ldif
+echo “objectClass: shadowAccount” >> users.ldif
+echo “cn: Muriel” >> users.ldif
+echo “sn: Greyjoy” >> users.ldif
+echo “uid: Muriel” >> users.ldif
+password=$(slappasswd -s Muriel123)
+echo “userPassword: $password” >> users.ldif
+
+
+echo “dn: dc=Labor,dc=Tests,dc=com” >> base.ldif
+echo “dc: Labor” >> base.ldif
+echo “objectClass: top” >> base.ldif
+echo “objectClass: domain” >> base.ldif
+echo “” >> base.ldif
+echo “dn: cn=ldapadm,dc=Labor,dc=Tests,dc=com” >> base.ldif
+echo “objectClass: organizationalRole” >> base.ldif
+echo “cn: ldapadm” >> base.ldif
+echo “description: LDAP Manager” >> base.ldif
+echo “” >> base.ldif
+echo “dn: ou=People,dc=Labor,dc=Tests,dc=com” >> base.ldif
+echo “objectClass: organizationalUnit” >> base.ldif
+echo “ou: People” >> base.ldif
+echo “” >> base.ldif
+echo “dn: ou=Group,dc=Labor,dc=Tests,dc=com” >> base.ldif
+echo “objectClass: organizationalUnit” >> base.ldif
+echo “ou: Group” >> base.ldif
+
+#Sarah und Muriel zur Admin Gruppe hinzugefügt
+echo “dn: cn=admin,ou=Group,dc=Labor,dc=Tests,dc=com” >> userGroups.ldif
+echo “changetype: modify” >> userGroups.ldif
+echo “add: memberUid” >> userGroups.ldif
+echo “memberUid: uid=Sarah,ou=People,dc=Labor,dc=Tests,dc=com” >> userGroups.ldif
+echo “” >> userGroups.ldif
+echo “dn: cn=oper,ou=Group,dc=Labor,dc=Tests,dc=com” >> userGroups.ldif
+echo “changetype: modify” >> userGroups.ldif
+echo “add: memberUid” >> userGroups.ldif
+echo “memberUid: uid=Muriel,ou=People,dc=Labor,dc=Tests,dc=com” >> userGroups.ldif
+
+#Konfiguration übernehmen
+ldapmodify -Y EXTERNAL -H ldapi:/// -f db.ldif
+cp /usr/share/openldap-servers/DB_CONFIG.example /var/lib/ldap/DB_CONFIG
+chown -R ldap:ldap /var/lib/ldap
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/cosine.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/nis.ldif
+ldapadd -Y EXTERNAL -H ldapi:/// -f /etc/openldap/schema/inetorgperson.ldif
+ldapadd -x -w WinterIsComing -D “cn=ldapadm,dc=Labor,dc=Tests,dc=com” -f base.ldif
+ldapadd -x -w WinterIsComing -D “cn=ldapadm,dc=Labor,dc=Tests,dc=com” -f users.ldif
+ldapadd -x -w WinterIsComing -D “cn=ldapadm,dc=Labor,dc=Tests,dc=com” -f groups.ldif
+ldapadd -x -w WinterIsComing -D “cn=ldapadm,dc=Labor,dc=Tests,dc=com” -f userGroups.ldif
+
+``` 
+Dies habe ich mit einer Vorlage gemacht und meine Daten hinzugefügt. 
