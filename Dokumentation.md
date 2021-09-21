@@ -27,3 +27,14 @@ Danach entschieden wir uns die Befehle in einen seperaten Script Datei zu wechse
 Bei einem Testgang ist uns danach aufgefallen, dass wir gar nicht in unsere VMs zugreifen kann.
 Wir suchten im Internet das Passwort und uns fiel auf, dass es nirgends steht. Überall stand eine Anleitung wie man eine SSH Passwort Setztung.
 ![image](https://user-images.githubusercontent.com/89509863/134144948-097a833b-da58-452a-b707-898b7440e80d.png)
+
+Ich suchte in den Scripts herum der unser Lehrer als Beispiele gegeben hatte, habe ich Befehle Gefunden die zum Passwort setzten waren.
+```ruby
+      set -o xtrace
+      sudo groupadd myadmin
+      sudo useradd admin1 -g myadmin -m -s /bin/bash
+      sudo chpasswd <<<admin1:admin
+
+```
+Ein User wurde erstellt namens admin1 und wurde zur admin Gruppe hinzugefügt. Zusätzlich wurde ein Passwort gesetzt admin.
+
