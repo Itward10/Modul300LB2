@@ -10,3 +10,11 @@ als andere an denen ich mich herangewagt habe. Dieses Projekt wird mir auch in Z
 und ich durfte mich wiedereinmal mit Linux auseinander setzen. Dieses Thema machte mir auch spass und ich durfte sehr viel selbst 
 in die Hand nehmen. Ich konnte mich auch mit Git auseinander setzen, da wir es noch nie aktiv benutzt hatten. 
 Dadurch wurde ich ein Fan von Git und Markdown, aber ich muss noch viel dazu lernen.
+
+
+**Muriel Rüegg:** 
+Diese Modul war für mich eine kleine herrausforderung. Ich konnte mich leider auch durch persönliche Geschehnisse nicht ganz so gut auf das ganze Konzentrieren.
+Auch konnte ich mich nicht ganz so fest in das Thema vertiefen wie ich dies wollte.
+Frau Schmid konnte mir aber viel helfen um was ich auch sehr froh war. Dank ihr konnte ich einiges verstehen und trotzdem dabei bleiben.
+Ich werde mir sicher für das nächste Projekt und die nächsten Module vornehmen, wieder meinen Standart zu erreichen und mehr von mir selbst aus zu machen.
+Das Modul im ganzen fand ich aber sehr interessant und ich werde sicher versuchen, so viel wie möglich in meiner Firma einsetzten zu können. Es war sehr spannend zu sehen, wie einfach man gewisse Sachen machen kann und wie viel Zeitersparniss man dadurch haben kann. Ich hoffe ich kann noch mehr über dieses Thema erfahren und erarbeiten und dieses in der Zukunft oft einsetzten.
