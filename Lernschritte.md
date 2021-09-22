@@ -112,6 +112,7 @@ Das meiste in der Programmiersprache ruby oder Vagrant ist sehr selbsterklärend
 
 Zuerst geht man ins Git Bash, das ist eine Linux kommandezeile, aber nicht Linux selber.
 Danach geht man auf den Pfad des Ordners, wo das Vagrantfile abgelegt ist.
+
 ![image](https://user-images.githubusercontent.com/89509863/134297257-66c6beb0-3db4-4fe9-ac85-9d92c1997a1a.png)
 
 Danach mit **Vagrant up** kann man das script ausführen.
