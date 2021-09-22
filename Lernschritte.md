@@ -106,4 +106,13 @@ Wenn man eine seperate Datei möchte für den script damit man die vms und scrip
 
 Die script Datei ist im gleichen Ordner wie die Vagrant Datei, deshalb muss man den Pfad nicht angeben.
 
+Das meiste in der Programmiersprache ruby oder Vagrant ist sehr selbsterklärend. Es gibt sehr viele Infos im Internet und dies macht die Sache einbisschen einfacher.
 
+## Ausführen des Vagrantfiles.
+
+Zuerst geht man ins Git Bash, das ist eine Linux kommandezeile, aber nicht Linux selber.
+Danach geht man auf den Pfad des Ordners, wo das Vagrantfile abgelegt ist.
+![image](https://user-images.githubusercontent.com/89509863/134297257-66c6beb0-3db4-4fe9-ac85-9d92c1997a1a.png)
+
+Danach mit **Vagrant up** kann man das script ausführen.
+Mit **Vagrant destroy -f** kann man alle Dateien der erstellten VM löschen, die mit dem Vagrantfile erstellt wurden.
