@@ -22,12 +22,12 @@ Vagrant.configure("2") do |config|
     web.vm.hostname = "Webserver" 
     web.vm.provision "shell", inline: <<-SHELL
       set -o xtrace
+      sudo apt-get update
+      sudo apt install -y apache2 
       sudo groupadd myadmin
       sudo useradd admin2 -g myadmin -m -s /bin/bash
       sudo chpasswd <<<admin2:admin
-    sudo apt-get update
-    sudo apt-get -y install apache2 
-  SHELL
+      SHELL
 end
 
   config.vm.define "worker1" do |w1|
