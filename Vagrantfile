@@ -20,7 +20,11 @@ Vagrant.configure("2") do |config|
     web.vm.network "forwarded_port", guest:80, host:8080, auto_correct: true
     web.vm.hostname "private_network", "ip 192.168.10.3",  virtualbox__dhcp_server: false
     web.vm.hostname = "Webserver" 
-    web.vm.provision "shell", inline: <<-SHELL 
+    web.vm.provision "shell", inline: <<-SHELL
+      set -o xtrace
+      sudo groupadd myadmin
+      sudo useradd admin2 -g myadmin -m -s /bin/bash
+      sudo chpasswd <<<admin2:admin
     sudo apt-get update
     sudo apt-get -y install apache2 
   SHELL
