@@ -7,4 +7,5 @@ Es machte spass Sachen auszuprobieren und zu ersetzten wenn es mal nicht klappte
 Das was mir immernoch schwer fällt ist es Probleme zu suchen und zu finden. 
 Da ich allgemein nie Programmiere oder arbeite. Aber diese Programiersprache war einfacher zu lernen 
 als andere an denen ich mich herangewagt habe. Dieses Projekt wird mir auch in Zukunft viel weiterhelfen 
-und ich durfte mich wiedereinmal mit Linux auseinander setzen.
+und ich durfte mich wiedereinmal mit Linux auseinander setzen. Dieses Thema machte mir auch spass und ich durfte sehr viel selbst 
+in die Hand nehmen. 
