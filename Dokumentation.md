@@ -51,7 +51,7 @@ echo “dn: olcDatabase={2}hdb,cn=config” >> db.ldif
 echo “changetype: modify” >> db.ldif
 ``` 
 ...
-Dies habe ich mit einer Vorlage gemacht und meine Daten hinzugefügt. Aber der Lehrer erklärte uns, dass diese Version veraltet war. Ich entschied mich das LDAP ganz aus der konfiguration zu löschen und dafür ein Webserver hinzuzufügen. 
+Dies habe ich mit einer Vorlage gemacht und meine Daten hinzugefügt. Aber der Lehrer erklärte uns, dass diese Version veraltet war. Ich entschied mich das LDAP ganz aus der konfiguration zu löschen und dafür ein Webserver hinzuzufügen. Da ich keine LDAP Kenntis habe.
 
 ```ruby
   config.vm.define "Webserver" do |web|
