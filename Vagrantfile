@@ -32,7 +32,7 @@ end
   config.vm.define "worker1" do |w1|
     w1.vm.box = "ubuntu/xenial64" 
     w1.vm.provider "virtualbox"
-    w1.vm.network "private_network", virtualbox__dhcp_server: false
+    w1.vm.network "private_network", ip: "192.168.10.50", virtualbox__dhcp_server: false
     w1.vm.hostname = "worker1"
     w1.vm.provision "shell", inline: <<-SHELL 
         set -o xtrace
