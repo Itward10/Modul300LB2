@@ -1,4 +1,6 @@
-# Vagrant anwendung
+# lernschritte
+
+## Vagrant
 
 Vagrant ist eine Software die dazu dient für einfache Softwareverteilung. Auf der Vagrant Website findet man allerlei Packete zur Installation von Betriebssysteme. Sie ist eine kommunikation zwischen Virtualisierungssoftware und Systemkonfigurationswerkzeuge. 
 
